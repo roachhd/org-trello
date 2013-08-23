@@ -151,7 +151,7 @@ You can always change this port</li>
 </ul><div class="highlight"><pre><span class="p">(</span><span class="k">setq</span> <span class="vg">*ORGTRELLO-PROXY-PORT*</span> <span class="mi">9876</span><span class="p">)</span>
 </pre></div>
 
-<p>Then M-x orgtrello-proxy/reload</p>
+<p>Then <code>M-x orgtrello-proxy/reload</code></p>
 
 <h1>
 <a name="tldr" class="anchor" href="#tldr"><span class="octicon octicon-link"></span></a>TL;DR</h1>
@@ -411,20 +411,72 @@ This will create the list from the keywords you use in your org-mode (cf. <a hre
 <h1>
 <a name="bindings" class="anchor" href="#bindings"><span class="octicon octicon-link"></span></a>Bindings</h1>
 
-<p>Actual bindings (not definitive, suggestions regarding those bindings are welcome):
-C-c o i - M-x org-trello/install-key-and-token       - Install the keys and the access-token.
-C-c o I - M-x org-trello/install-board-and-lists-ids - Select the board and attach the todo, doing and done list.
-C-c o d - M-x org-trello/check-setup                 - Check that the setup is ok. If everything is ok, will simply display 'Setup ok!'
-C-c o D - M-x org-trello/delete-setup                - Clean up the org buffer from all org-trello informations
-C-c o b - M-x org-trello/create-board                - Create interactively a board and attach the org-mode file to this trello board.
-C-c o c - M-x org-trello/create-simple-entity        - Create/Update an entity (card/checklist/item) depending on its level and status. Do not deal with level superior to 4.
-C-c o C - M-x org-trello/create-complex-entity       - Create/Update a complete entity card/checklist/item and its subtree (depending on its level).
-C-c o s - M-x org-trello/sync-to-trello              - Synchronize the org-mode file to the trello board (org-mode -&gt; trello).
-C-c o S - M-x org-trello/sync-from-trello            - Synchronize the org-mode file from the trello board (trello -&gt; org-mode).
-C-c o k - M-x org-trello/kill-entity                 - Kill the entity (and its arborescence tree).
-C-c o h - M-x org-trello/help-describing-bindings    - This help message.</p>
+<p>Actual bindings (not definitive, suggestions regarding those bindings are welcome):</p>
 
-<h1>
+<table>
+<thead><tr>
+<th>Keybindings</th>
+<th>Interactive commands</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><kbd>C-c o i</kbd></td>
+<td><code>M-x org-trello/install-key-and-token</code></td>
+<td>Install the keys and the access-token.</td>
+</tr>
+<tr>
+<td><kbd>C-c o I</kbd></td>
+<td><code>M-x org-trello/install-board-and-lists-ids</code></td>
+<td>Select the board and attach the todo, doing and done list.</td>
+</tr>
+<tr>
+<td><kbd>C-c o d</kbd></td>
+<td><code>M-x org-trello/check-setup</code></td>
+<td>Check that the setup is ok. If everything is ok, will simply display 'Setup ok!'</td>
+</tr>
+<tr>
+<td><kbd>C-c o D</kbd></td>
+<td><code>M-x org-trello/delete-setup</code></td>
+<td>Clean up the org buffer from all org-trello informations</td>
+</tr>
+<tr>
+<td><kbd>C-c o b</kbd></td>
+<td><code>M-x org-trello/create-board</code></td>
+<td>Create interactively a board and attach the org-mode file to this trello board.</td>
+</tr>
+<tr>
+<td><kbd>C-c o c</kbd></td>
+<td><code>M-x org-trello/create-simple-entity</code></td>
+<td>Create/Update an entity (card/checklist/item) depending on its level and status. Do not deal with level superior to 4.</td>
+</tr>
+<tr>
+<td><kbd>C-c o C</kbd></td>
+<td><code>M-x org-trello/create-complex-entity</code></td>
+<td>Create/Update a complete entity card/checklist/item and its subtree (depending on its level).</td>
+</tr>
+<tr>
+<td><kbd>C-c o s</kbd></td>
+<td><code>M-x org-trello/sync-to-trello</code></td>
+<td>Synchronize the org-mode file to the trello board (org-mode -&gt; trello).</td>
+</tr>
+<tr>
+<td><kbd>C-c o S</kbd></td>
+<td><code>M-x org-trello/sync-from-trello</code></td>
+<td>Synchronize the org-mode file from the trello board (trello -&gt; org-mode).</td>
+</tr>
+<tr>
+<td><kbd>C-c o k</kbd></td>
+<td><code>M-x org-trello/kill-entity</code></td>
+<td>Kill the entity (and its arborescence tree).</td>
+</tr>
+<tr>
+<td><kbd>C-c o h</kbd></td>
+<td><code>M-x org-trello/help-describing-bindings</code></td>
+<td>This help message.</td>
+</tr>
+</tbody>
+</table><h1>
 <a name="use-cases" class="anchor" href="#use-cases"><span class="octicon octicon-link"></span></a>Use cases</h1>
 
 <h2>
@@ -606,6 +658,18 @@ Also, you can specify on your org-mode buffer the todo list you want to work wit
 </code></pre>
 </li>
 </ul><h1>
+<a name="proxy-admin" class="anchor" href="#proxy-admin"><span class="octicon octicon-link"></span></a>proxy-admin</h1>
+
+<p>From the version 0.1.2 onwards, there is a proxy which is in charge of:</p>
+
+<ul>
+<li>consuming the synchronization of the entities</li>
+<li>requesting Trello for other actions too</li>
+<li>proxy admin web page</li>
+</ul><p>I also use it to make at disposition an admin web server - http://localhost:9876/proxy/admin/ - to be able to know which sync actions are running:
+<img src="https://f.cloud.github.com/assets/718812/1014903/c208ff34-0bca-11e3-895a-432f66453208.png" alt="screenshot_2013-08-23_10-03-54"></p>
+
+<h1>
 <a name="mailing-list" class="anchor" href="#mailing-list"><span class="octicon octicon-link"></span></a>Mailing list</h1>
 
 <ul>
