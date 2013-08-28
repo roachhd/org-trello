@@ -32,12 +32,12 @@
 <a name="org-trello-" class="anchor" href="#org-trello-"><span class="octicon octicon-link"></span></a>org-trello <a href="https://travis-ci.org/ardumont/org-trello"><img src="https://travis-ci.org/ardumont/org-trello.png?branch=master" alt="Build Status"></a>
 </h1>
 
-<p>Minor emacs mode for org-mode - 2-way synchronization between org and trello board</p>
+<p><a href="http://orgmode.org/">Org</a> minor mode - 2-way sync <a href="http://orgmode.org/">org</a> &amp; <a href="http://trello.com/">trello</a></p>
 
 <p><strong>Table of Contents</strong>  <em>generated with <a href="http://doctoc.herokuapp.com/">DocToc</a></em></p>
 
 <ul>
-<li><a href="#why">why?</a></li>
+<li><a href="#rational">rational</a></li>
 <li><a href="#emacs-version">Emacs version</a></li>
 <li><a href="#migration">Migration</a></li>
 <li>
@@ -108,20 +108,43 @@
 
 <ul>
 <li><a href="#setup-1">Setup</a></li>
+<li>
+<a href="#formats">Formats</a>
+
+<ul>
+<li>
+<a href="#natural-org-format-from-016-onwards">natural org format (from 0.1.6 onwards)</a>
+
+<ul>
+<li><a href="#migrate-to-016">Migrate to 0.1.6</a></li>
+<li><a href="#reactivate">Reactivate</a></li>
+</ul>
+</li>
+<li>
+<a href="#original-format-previous-to-016">Original format (previous to 0.1.6)</a>
+
+<ul>
+<li><a href="#activate">Activate</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a href="#creation-step-by-step">Creation step-by-step</a></li>
 <li><a href="#card-and-deadlinedue-date">Card and deadline/due date</a></li>
-<li><a href="#checklist-and-transitivity">Checklist and transitivity</a></li>
 <li><a href="#creation-full-entity">Creation full entity</a></li>
 <li><a href="#sync-org-mode-file-to-trello-board">Sync org-mode file to trello board</a></li>
 <li><a href="#sync-org-mode-file-from-trello-board">Sync org-mode file from trello board</a></li>
 <li><a href="#remove-entity">Remove entity</a></li>
+<li><a href="#remove-entities">Remove entities</a></li>
+<li><a href="#cleanup-org-trello-setup">Cleanup org-trello setup</a></li>
 </ul>
 </li>
 <li><a href="#errors">Errors</a></li>
+<li><a href="#proxy-admin">proxy-admin</a></li>
 <li><a href="#mailing-list">Mailing list</a></li>
 <li><a href="#license">License</a></li>
 </ul><h1>
-<a name="why" class="anchor" href="#why"><span class="octicon octicon-link"></span></a>why?</h1>
+<a name="rational" class="anchor" href="#rational"><span class="octicon octicon-link"></span></a>rational</h1>
 
 <ul>
 <li>
@@ -129,8 +152,10 @@
 <li>
 <a href="http://trello.com/">Trello</a> is what my team need.</li>
 <li>
-<a href="https://github.com/ardumont/org-trello">org-trello</a> may satisfy everybody.</li>
-</ul><h1>
+<a href="https://github.com/ardumont/org-trello">org-trello</a> is middle ground!</li>
+</ul><p>This will satisfy org-modians and trelloans won't see any difference!</p>
+
+<h1>
 <a name="emacs-version" class="anchor" href="#emacs-version"><span class="octicon octicon-link"></span></a>Emacs version</h1>
 
 <p>Tested on:</p>
@@ -140,6 +165,12 @@
 <li>GNU Emacs 24.3.1 (x86_64-pc-linux-gnu, X toolkit, Xaw3d scroll bars) of 2013-04-14 on marid, modified by Debian (from 0.1.0)</li>
 </ul><h1>
 <a name="migration" class="anchor" href="#migration"><span class="octicon octicon-link"></span></a>Migration</h1>
+
+<p>0.1.5 -&gt; 0.1.6</p>
+
+<p>Org-trello does use more natural ways of dealing with checklist using checkboxes!</p>
+
+<p>cf. <a href="#natural-org-format-from-016-onwards">natural org format (from 0.1.6 onwards)</a> for more details.</p>
 
 <p>0.1.1 -&gt; 0.1.2:</p>
 
@@ -436,7 +467,7 @@ This will create the list from the keywords you use in your org-mode (cf. <a hre
 <td>Check that the setup is ok. If everything is ok, will simply display 'Setup ok!'</td>
 </tr>
 <tr>
-<td><kbd>C-c o D</kbd></td>
+<td><kbd>C-c o x</kbd></td>
 <td><code>M-x org-trello/delete-setup</code></td>
 <td>Clean up the org buffer from all org-trello informations</td>
 </tr>
@@ -468,7 +499,12 @@ This will create the list from the keywords you use in your org-mode (cf. <a hre
 <tr>
 <td><kbd>C-c o k</kbd></td>
 <td><code>M-x org-trello/kill-entity</code></td>
-<td>Kill the entity (and its arborescence tree).</td>
+<td>Kill the entity (and its arborescence tree) from the trello board and the org buffer.</td>
+</tr>
+<tr>
+<td><kbd>C-c o K</kbd></td>
+<td><code>M-x org-trello/kill-all-entities</code></td>
+<td>Kill all the entities (and their arborescence tree) from the trello board and the org buffer.</td>
 </tr>
 <tr>
 <td><kbd>C-c o h</kbd></td>
@@ -500,31 +536,161 @@ This will edit your org-mode file with properties needed.</li>
 </ul><p>Now you are ready to use org-mode as usual.</p>
 
 <h2>
+<a name="formats" class="anchor" href="#formats"><span class="octicon octicon-link"></span></a>Formats</h2>
+
+<p>There is a new setup which is activated by default, using the natural org <a href="http://orgmode.org/manual/Checkboxes.html">checkboxes</a>.
+Thanks to <a href="https://github.com/sw1nn" class="user-mention">@sw1nn</a> <a href="https://github.com/ardumont/org-trello/issues/14">for showing me this org feature, this is awesome!</a>.</p>
+
+<h3>
+<a name="natural-org-format-from-016-onwards" class="anchor" href="#natural-org-format-from-016-onwards"><span class="octicon octicon-link"></span></a>natural org format (from 0.1.6 onwards)</h3>
+
+<p>Activated by default.</p>
+
+<pre lang="org-mode"><code>- [-] LISP
+  - [X] Emacs-Lisp
+  - [X] Common-Lisp
+  - [ ] Scheme
+  - [X] Clojure
+- [X] ML
+  - [X] Haskell
+  - [X] Ocaml
+- [X] Hybrid
+  - [X] Scala
+- [ ] little more detail, this is level 2, so checklist in trello board
+  - [ ] item 3
+    - [ ] any entities with level superior to 4 are considered level 3
+</code></pre>
+
+<p>For example, once sync to trello, this looks like:</p>
+
+<pre><code>* IN-PROGRESS Joy of FUN(ctional) LANGUAGES
+:PROPERTIES:
+:orgtrello-id: 521dc9f3edeabee47600401e
+:END:
+- [-] LISP                                                    :PROPERTIES: {"orgtrello-id":"521dc9f48e95d74636004107"}
+  - [X] Emacs-Lisp                                            :PROPERTIES: {"orgtrello-id":"521dc9f7487c2e9b250047a5"}
+  - [X] Common-Lisp                                           :PROPERTIES: {"orgtrello-id":"521dc9f7ae27842a36003b26"}
+  - [ ] Scheme                                                :PROPERTIES: {"orgtrello-id":"521dc9f834f52df935003b15"}
+  - [X] Clojure                                               :PROPERTIES: {"orgtrello-id":"521dc9f9c1b85c905f006b4e"}
+- [X] ML                                                      :PROPERTIES: {"orgtrello-id":"521dc9f5d49a919614000266"}
+  - [X] Haskell                                               :PROPERTIES: {"orgtrello-id":"521dc9fa5699f00b25003bd0"}
+  - [X] Ocaml                                                 :PROPERTIES: {"orgtrello-id":"521dc9fb7ef4310554003ab3"}
+- [X] Hybrid                                                  :PROPERTIES: {"orgtrello-id":"521dc9f6238d072770007217"}
+  - [X] Scala                                                 :PROPERTIES: {"orgtrello-id":"521dc9fc8e95d74636004109"}
+</code></pre>
+
+<h4>
+<a name="migrate-to-016" class="anchor" href="#migrate-to-016"><span class="octicon octicon-link"></span></a>Migrate to 0.1.6</h4>
+
+<p>To migrate your 0.1.6 org trello buffer to the new format:</p>
+
+<ul>
+<li>simply push the content to trello (<code>C-c o s</code>)</li>
+<li>Erase the content of your buffer except for the org-trello properties (<code>#+</code> entries at the beginning of the file)</li>
+<li>and sync from trello again (<code>C-c o S</code>).</li>
+</ul><h4>
+<a name="reactivate" class="anchor" href="#reactivate"><span class="octicon octicon-link"></span></a>Reactivate</h4>
+
+<p>This is activated by default but if you change this and you want to get back:</p>
+
+<div class="highlight"><pre><span class="p">(</span><span class="nv">org-trello/activate-natural-org-checkboxes</span><span class="p">)</span>
+</pre></div>
+
+<h3>
+<a name="original-format-previous-to-016" class="anchor" href="#original-format-previous-to-016"><span class="octicon octicon-link"></span></a>Original format (previous to 0.1.6)</h3>
+
+<pre lang="org-mode"><code>* IN-PROGRESS Joy of FUN(ctional) LANGUAGES
+** TODO LISP
+*** DONE Emacs-Lisp
+*** DONE Common-Lisp
+*** Scheme
+*** TODO Clojure
+** DONE ML
+*** DONE Haskell
+*** DONE Ocaml
+** DONE Hybrid
+*** DONE Scala
+** A little more explanation, this is level 2 so checklist on trello
+*** item (level 3)
+**** Any entity superior to level 4 are not considered for sync
+</code></pre>
+
+<p>Once synchronized, this looks like (largely prettier in emacs org buffer):</p>
+
+<pre lang="org-mode"><code>* IN-PROGRESS Joy of FUN(ctional) LANGUAGES
+:PROPERTIES:
+:orgtrello-id: 521dc9f3edeabee47600401e
+:END:
+** TODO LISP
+:PROPERTIES:
+:orgtrello-id: 521dc9f48e95d74636004107
+:END:
+*** DONE Emacs-Lisp
+:PROPERTIES:
+:orgtrello-id: 521dc9f7487c2e9b250047a5
+:END:
+*** DONE Common-Lisp
+:PROPERTIES:
+:orgtrello-id: 521dc9f7ae27842a36003b26
+:END:
+*** TODO Scheme
+:PROPERTIES:
+:orgtrello-id: 521dc9f834f52df935003b15
+:END:
+*** DONE Clojure
+:PROPERTIES:
+:orgtrello-id: 521dc9f9c1b85c905f006b4e
+:END:
+** TODO ML
+:PROPERTIES:
+:orgtrello-id: 521dc9f5d49a919614000266
+:END:
+*** DONE Haskell
+:PROPERTIES:
+:orgtrello-id: 521dc9fa5699f00b25003bd0
+:END:
+*** DONE Ocaml
+:PROPERTIES:
+:orgtrello-id: 521dc9fb7ef4310554003ab3
+:END:
+** TODO Hybrid
+:PROPERTIES:
+:orgtrello-id: 521dc9f6238d072770007217
+:END:
+*** DONE Scala
+:PROPERTIES:
+:orgtrello-id: 521dc9fc8e95d74636004109
+:END:
+
+</code></pre>
+
+<h4>
+<a name="activate" class="anchor" href="#activate"><span class="octicon octicon-link"></span></a>Activate</h4>
+
+<p>From 0.1.6 onwards, if you want to deactivate the default way, and get back to the original way, set this snippet somewhere in your init file:</p>
+
+<div class="highlight"><pre><span class="p">(</span><span class="nv">org-trello/deactivate-natural-org-checkboxes</span><span class="p">)</span>
+</pre></div>
+
+<h2>
 <a name="creation-step-by-step" class="anchor" href="#creation-step-by-step"><span class="octicon octicon-link"></span></a>Creation step-by-step</h2>
 
-<p>The idea is this, you have 3 levels:</p>
+<p>Basically, you have 3 levels (cf. <a href="#formats">possible formats</a>)</p>
 
 <ul>
 <li>level 1 - Card</li>
 <li>level 2 - Checklist</li>
 <li>level 3 - Item</li>
-</ul><p>For example:</p>
-
-<pre lang="org-mode"><code>* card-identity (label mandatory)
-** checklist (label mandatory)
-*** item1 (label mandatory)
-*** item2 (label mandatory)
-*** item3 (label mandatory)
-</code></pre>
+</ul><p>Steps:</p>
 
 <ul>
 <li>
 <p>Card:</p>
 
 <ul>
-<li>Place yourself on the <code>card-identity</code> and hit the binding <code>C-c o c</code>, this will create the card in the <code>TODO</code> column in your trello board.</li>
-<li>You can edit the label and hit <code>C-c o c</code> again, this time, this will update the label in trello</li>
-<li>Change the status from TODO to any intermediary status, then hit the binding, this will move the card to the list <code>DOING</code>.</li>
+<li>Place yourself on the <code>card-identity</code> and hit the binding <code>C-c o c</code>, this will sync the card (create) in the <code>TODO</code> column in your trello board.</li>
+<li>You can edit the label and hit <code>C-c o c</code> again, this time, this will sync the card again (update) in trello</li>
+<li>Change the status from TODO to any intermediary status, then hit the binding, this will move the card to the list <code>DOING</code> (depending on your todo keywords list).</li>
 <li>Once done, move the status of the card from anything to DONE, hit the binding, this will move the card to the list <code>DONE</code>.</li>
 </ul>
 </li>
@@ -552,21 +718,6 @@ This will edit your org-mode file with properties needed.</li>
 <p>You can use <a href="http://orgmode.org/manual/Inserting-deadline_002fschedule.html">org-mode's deadline</a>, this is mapped to trello's due date notion during the synchronize step.</p>
 
 <h2>
-<a name="checklist-and-transitivity" class="anchor" href="#checklist-and-transitivity"><span class="octicon octicon-link"></span></a>Checklist and transitivity</h2>
-
-<p>By default now, the status of the checklist does transit to the items.
-Thus:</p>
-
-<ul>
-<li>if the status of the checklist is DONE, every item will be synced to DONE and the org-mode buffer will be updated accordingly.</li>
-<li>if the status of the checklist is TODO, every item will be synced to TODO and the org-mode buffer will be updated accordingly.</li>
-</ul><p>If you do not want this, you can disable it by adding those lines to your emacs's startup file:</p>
-
-<div class="highlight"><pre><span class="p">(</span><span class="nb">require</span> <span class="ss">'org-trello</span><span class="p">)</span>
-<span class="p">(</span><span class="k">setq</span> <span class="vg">*ORGTRELLO-CHECKLIST-UPDATE-ITEMS*</span> <span class="no">nil</span><span class="p">)</span>
-</pre></div>
-
-<h2>
 <a name="creation-full-entity" class="anchor" href="#creation-full-entity"><span class="octicon octicon-link"></span></a>Creation full entity</h2>
 
 <p>You can sync all the entities and their arborescence once.
@@ -589,8 +740,20 @@ Hit <code>C-c o S</code>.</p>
 <h2>
 <a name="remove-entity" class="anchor" href="#remove-entity"><span class="octicon octicon-link"></span></a>Remove entity</h2>
 
-<p>You can remove any entity and its arborescence with <code>C-c o k</code>.
+<p>You can remove any entity and its arborescence from the board with <code>C-c o k</code>.
 This will also remove the entry from the org-mode buffer.</p>
+
+<h2>
+<a name="remove-entities" class="anchor" href="#remove-entities"><span class="octicon octicon-link"></span></a>Remove entities</h2>
+
+<p>You can remove all entities from the board <code>C-c o K</code>.
+This will also remove the entries from the org-mode buffer.</p>
+
+<h2>
+<a name="cleanup-org-trello-setup" class="anchor" href="#cleanup-org-trello-setup"><span class="octicon octicon-link"></span></a>Cleanup org-trello setup</h2>
+
+<p>You can remove all data from the org-mode buffer with <code>C-c o x</code>.
+This will remove any org-trello related entries in your file (headers included).</p>
 
 <h1>
 <a name="errors" class="anchor" href="#errors"><span class="octicon octicon-link"></span></a>Errors</h1>
