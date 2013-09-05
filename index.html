@@ -37,14 +37,14 @@
 <p><strong>Table of Contents</strong>  <em>generated with <a href="http://doctoc.herokuapp.com/">DocToc</a></em></p>
 
 <ul>
-<li><a href="#rational">rational</a></li>
+<li><a href="#rationale">rationale</a></li>
 <li><a href="#emacs-version">Emacs version</a></li>
 <li><a href="#migration">Migration</a></li>
 <li>
 <a href="#tl;dr">TL;DR</a>
 
 <ul>
-<li><a href="#fast-help">Fast help</a></li>
+<li><a href="#fast-setup">Fast setup</a></li>
 <li>
 <a href="#demo">Demo</a>
 
@@ -144,7 +144,7 @@
 <li><a href="#mailing-list">Mailing list</a></li>
 <li><a href="#license">License</a></li>
 </ul><h1>
-<a name="rational" class="anchor" href="#rational"><span class="octicon octicon-link"></span></a>rational</h1>
+<a name="rationale" class="anchor" href="#rationale"><span class="octicon octicon-link"></span></a>rationale</h1>
 
 <ul>
 <li>
@@ -152,7 +152,7 @@
 <li>
 <a href="http://trello.com/">Trello</a> is what my team need.</li>
 <li>
-<a href="https://github.com/ardumont/org-trello">org-trello</a> is middle ground!</li>
+<a href="https://github.com/ardumont/org-trello">org-trello</a> is the middle ground!</li>
 </ul><p>This will satisfy org-modians and trelloans won't see any difference!</p>
 
 <h1>
@@ -168,16 +168,16 @@
 
 <p>0.1.5 -&gt; 0.1.6</p>
 
-<p>Org-trello does use more natural ways of dealing with checklist using checkboxes!</p>
+<p>Org-trello now uses more natural ways of dealing with checklists using checkboxes!</p>
 
 <p>cf. <a href="#natural-org-format-from-016-onwards">natural org format (from 0.1.6 onwards)</a> for more details.</p>
 
 <p>0.1.1 -&gt; 0.1.2:</p>
 
 <ul>
-<li>From the version 0.1.1, some of the http requests will be asynchronous.
-For this, we use elnode as a proxy server before requesting trello.
-elnode server is started on the port 9876.
+<li>From version 0.1.1, some http requests will be asynchronous.
+For this, we use elnode as a proxy server to make requests to trello.
+The elnode server is started on the port 9876.
 You can always change this port</li>
 </ul><div class="highlight"><pre><span class="p">(</span><span class="k">setq</span> <span class="vg">*ORGTRELLO-PROXY-PORT*</span> <span class="mi">9876</span><span class="p">)</span>
 </pre></div>
@@ -188,7 +188,7 @@ You can always change this port</li>
 <a name="tldr" class="anchor" href="#tldr"><span class="octicon octicon-link"></span></a>TL;DR</h1>
 
 <h2>
-<a name="fast-help" class="anchor" href="#fast-help"><span class="octicon octicon-link"></span></a>Fast help</h2>
+<a name="fast-setup" class="anchor" href="#fast-setup"><span class="octicon octicon-link"></span></a>Fast setup</h2>
 
 <p>Yank this into a scratch buffer:</p>
 
@@ -206,6 +206,11 @@ You can always change this port</li>
 <p>then <code>M-x eval-buffer</code></p>
 
 <p>Now open an org-mode buffer, then hit: <code>C-c o h</code></p>
+
+<p><em>Note</em> If for some reason, the installation fails, force the installation again</p>
+
+<div class="highlight"><pre><span class="p">(</span><span class="nv">package-install</span> <span class="ss">'org-trello</span><span class="p">)</span>
+</pre></div>
 
 <h2>
 <a name="demo" class="anchor" href="#demo"><span class="octicon octicon-link"></span></a>Demo</h2>
@@ -279,7 +284,7 @@ You can always change this port</li>
 <a name="contributions" class="anchor" href="#contributions"><span class="octicon octicon-link"></span></a>Contributions</h1>
 
 <ul>
-<li>Pull Requests welcome (cf. <a href="./TODO.org">todo</a> - better read on emacs's org-mode buffer)</li>
+<li>Pull Requests welcome (cf. <a href="./TODO.org">todo</a> - better read in an emacs org-mode buffer than on GitHub)</li>
 <li>Appreciate any feedback</li>
 <li>Open issues if you want something to be done</li>
 <li>Open issues for bugs too (please describe maximum inputs, version, <em>Messages</em> buffer, stacktrace, etc...)</li>
@@ -299,7 +304,7 @@ You can always change this port</li>
 
 <div class="highlight"><pre><span class="p">(</span><span class="nb">require</span> <span class="ss">'package</span><span class="p">)</span>
 
-<span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'package-archives</span> <span class="o">'</span><span class="p">(</span><span class="s">"melpa"</span> <span class="o">.</span> <span class="s">"http://melpa.milkbox.net/packages/"</span><span class="p">)</span> <span class="no">t</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'package-archives</span> <span class="o">'</span><span class="p">(</span><span class="s">"marmalade"</span> <span class="o">.</span> <span class="s">"http://marmalade-repo.org/packages/"</span><span class="p">))</span>
 
 <span class="p">(</span><span class="nv">package-initialize</span><span class="p">)</span>
 </pre></div>
@@ -313,7 +318,7 @@ You can always change this port</li>
 
 <div class="highlight"><pre><span class="p">(</span><span class="nb">require</span> <span class="ss">'package</span><span class="p">)</span>
 
-<span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'package-archives</span> <span class="o">'</span><span class="p">(</span><span class="s">"marmalade"</span> <span class="o">.</span> <span class="s">"http://marmalade-repo.org/packages/"</span><span class="p">))</span>
+<span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'package-archives</span> <span class="o">'</span><span class="p">(</span><span class="s">"melpa"</span> <span class="o">.</span> <span class="s">"http://melpa.milkbox.net/packages/"</span><span class="p">)</span> <span class="no">t</span><span class="p">)</span>
 
 <span class="p">(</span><span class="nv">package-initialize</span><span class="p">)</span>
 </pre></div>
@@ -353,6 +358,11 @@ You can always change this port</li>
 <span class="p">(</span><span class="nb">require</span> <span class="ss">'org-trello</span><span class="p">)</span>
 </pre></div>
 
+<p><em>Note</em> If for some reason, the installation fails, force the installation again</p>
+
+<div class="highlight"><pre><span class="p">(</span><span class="nv">package-install</span> <span class="ss">'org-trello</span><span class="p">)</span>
+</pre></div>
+
 <h2>
 <a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example</h2>
 
@@ -366,9 +376,9 @@ You can always change this port</li>
 <a name="emacs-related" class="anchor" href="#emacs-related"><span class="octicon octicon-link"></span></a>Emacs related</h2>
 
 <p>Org-trello is a minor mode for org-mode to sync.
-Add this somewhere in your load file (~/.emacs or ~/.emacs.d/init.el).</p>
+Add this somewhere in your load file (<code>~/.emacs</code> or <code>~/.emacs.d/init.el</code>).</p>
 
-<div class="highlight"><pre><span class="p">(</span><span class="nb">require</span> <span class="ss">'orgtrello</span><span class="p">)</span>
+<div class="highlight"><pre><span class="p">(</span><span class="nb">require</span> <span class="ss">'org-trello</span><span class="p">)</span>
 <span class="c1">;; to have org-trello activated for all org file, uncomment this</span>
 <span class="c1">;; (add-hook 'org-mode-hook 'org-trello-mode)</span>
 <span class="c1">;; otherwise, M-x org-trello-mode</span>
@@ -382,35 +392,20 @@ Add this somewhere in your load file (~/.emacs or ~/.emacs.d/init.el).</p>
 <h3>
 <a name="keys" class="anchor" href="#keys"><span class="octicon octicon-link"></span></a>keys</h3>
 
-<p>Install the consumer-key and the read-write token for org-trello to be able to work in your name with your trello boards.</p>
+<p>Install the consumer-key and the read-write token for org-trello to be able to work in your name with your trello boards.
+First, ensure that the web browser that emacs is configured to use is started, and you are logged in to Trello in it.</p>
+
+<p>Then, from an org-mode buffer:</p>
 
 <p><code>C-c o i</code></p>
 
-<p>or</p>
+<p>or in any mode:</p>
 
 <div class="highlight"><pre><span class="nv">M-x</span> <span class="nv">org-trello/install-key-and-token</span>
 </pre></div>
 
 <h3>
 <a name="sync-org-to-trello" class="anchor" href="#sync-org-to-trello"><span class="octicon octicon-link"></span></a>Sync org to trello</h3>
-
-<h4>
-<a name="pre-requisite" class="anchor" href="#pre-requisite"><span class="octicon octicon-link"></span></a>pre-requisite</h4>
-
-<p>Beware, this step implicitely requires you to prepare your trello board by creating the needed list (in accordance to your org-mode keywords, cf. <a href="https://www.gnu.org/software/emacs/manual/html_node/org/Per_002dfile-keywords.html">org-todo-keywords</a>).</p>
-
-<p>For example, you could either use the following keywords globally:</p>
-
-<div class="highlight"><pre><span class="p">(</span><span class="k">setq</span> <span class="nv">org-todo-keywords</span>
-   <span class="o">'</span><span class="p">((</span><span class="nc">sequence</span> <span class="s">"TODO"</span> <span class="s">"IN-PROGRESS"</span> <span class="s">"PENDING"</span> <span class="s">"|"</span>  <span class="s">"DONE"</span> <span class="s">"FAIL"</span> <span class="s">"DELEGATED"</span> <span class="s">"CANCELLED"</span><span class="p">)))</span>
-</pre></div>
-
-<p>Or, you could also setup your org-mode file locally, adding this as a org-mode header in your file (cf. <a href="https://www.gnu.org/software/emacs/manual/html_node/org/Per_002dfile-keywords.html">previous link</a>):</p>
-
-<pre lang="orgmode"><code>#+TODO: TODO IN-PROGRESS PENDING | DONE FAIL DELEGATED CANCELLED
-</code></pre>
-
-<p>Either way, you need to create the list "TODO", "IN-PROGRESS", "PENDING", "DONE", "FAIL", "DELEGATED", and "CANCELLED" in your trello board before launching the routine to setup your org-mode buffer.</p>
 
 <h4>
 <a name="sync-your-org-mode-buffer" class="anchor" href="#sync-your-org-mode-buffer"><span class="octicon octicon-link"></span></a>Sync your org-mode buffer</h4>
@@ -521,18 +516,18 @@ This will create the list from the keywords you use in your org-mode (cf. <a hre
 <ol>
 <li><p>open an org-mode file</p></li>
 <li><p>Install the key and the token file (<code>C-c o i</code> or <code>M-x org-trello/install-key-and-token</code>).
-This will open your browser to retrieve the needed informations (<code>consumer-key</code> then the <code>access-token</code>) and wait for your input in emacs.</p></li>
-</ol><p><em>Remark:</em> This need to be done once and for all until you revoke such token.</p>
+This will open your browser to retrieve the needed information (<code>consumer-key</code> then the <code>access-token</code>) and wait for your input in emacs.</p></li>
+</ol><p><em>Remark:</em> This only needs to be done once, until you revoke the token.</p>
 
 <ol>
 <li>Setup your org-mode file with your trello board (<code>C-c o I</code> or <code>M-x org-trello/install-board-and-lists-ids</code>).
-This will present you a list of your actual boards. Select the one you want and hit enter.
-This will edit your org-mode file with properties needed.</li>
+This will present you with a list of your actual boards. Select the one you want and hit enter.
+This will edit your org-mode file to add the properties needed.</li>
 </ol><p><em>Remarks:</em></p>
 
 <ul>
 <li>This need to be done once for each org-mode file you want to sync with a trello board.</li>
-<li>You can create directly a board (<code>C-c o b</code> or <code>M-x orgtrello/do-create-board-and-lists</code>)</li>
+<li>You can directly create a board (<code>C-c o b</code> or <code>M-x orgtrello/do-create-board-and-lists</code>)</li>
 </ul><p>Now you are ready to use org-mode as usual.</p>
 
 <h2>
@@ -561,7 +556,7 @@ Thanks to <a href="https://github.com/sw1nn" class="user-mention">@sw1nn</a> <a 
     - [ ] any entities with level superior to 4 are considered level 3
 </code></pre>
 
-<p>For example, once sync to trello, this looks like:</p>
+<p>For example, once synced to trello, this looks like:</p>
 
 <pre><code>* IN-PROGRESS Joy of FUN(ctional) LANGUAGES
 :PROPERTIES:
@@ -667,7 +662,7 @@ Thanks to <a href="https://github.com/sw1nn" class="user-mention">@sw1nn</a> <a 
 <h4>
 <a name="activate" class="anchor" href="#activate"><span class="octicon octicon-link"></span></a>Activate</h4>
 
-<p>From 0.1.6 onwards, if you want to deactivate the default way, and get back to the original way, set this snippet somewhere in your init file:</p>
+<p>From 0.1.6 onwards, if you want to deactivate the default way, and get back to the original way, put this snippet somewhere in your init file:</p>
 
 <div class="highlight"><pre><span class="p">(</span><span class="nv">org-trello/deactivate-natural-org-checkboxes</span><span class="p">)</span>
 </pre></div>
@@ -718,7 +713,7 @@ Thanks to <a href="https://github.com/sw1nn" class="user-mention">@sw1nn</a> <a 
 <p>You can use <a href="http://orgmode.org/manual/Inserting-deadline_002fschedule.html">org-mode's deadline</a>, this is mapped to trello's due date notion during the synchronize step.</p>
 
 <h2>
-<a name="creation-full-entity" class="anchor" href="#creation-full-entity"><span class="octicon octicon-link"></span></a>Creation full entity</h2>
+<a name="creation-of-a-full-entity" class="anchor" href="#creation-of-a-full-entity"><span class="octicon octicon-link"></span></a>Creation of a full entity</h2>
 
 <p>You can sync all the entities and their arborescence once.
 Place yourself on the entity (card or checklist or item) and hit <code>C-c o C</code>.</p>
@@ -735,7 +730,7 @@ Hit <code>C-c o s</code>.</p>
 <p>You can sync the content of your trello board into an org-mode file.
 Hit <code>C-c o S</code>.</p>
 
-<p>This will update any already present entry in the org-mode file and create the one not created yet.</p>
+<p>This will update any entries that were already present in the org-mode file and create any entries that were not created yet.</p>
 
 <h2>
 <a name="remove-entity" class="anchor" href="#remove-entity"><span class="octicon octicon-link"></span></a>Remove entity</h2>
@@ -758,17 +753,17 @@ This will remove any org-trello related entries in your file (headers included).
 <h1>
 <a name="errors" class="anchor" href="#errors"><span class="octicon octicon-link"></span></a>Errors</h1>
 
-<p>Here are the possible error messages you can have if trying to sync in bad conditions:</p>
+<p>Here are the possible error messages you can get if trying to sync in bad conditions:</p>
 
 <ul>
 <li>
-<p>without setuping the consumer-key and the access-token:</p>
+<p>without setting up the consumer-key and the access-token:</p>
 
 <pre><code>- Setup problem - You need to install the consumer-key and the read/write access-token - C-c o i or M-x org-trello/install-board-and-lists-ids
 </code></pre>
 </li>
 <li>
-<p>without setuping the org-mode buffer:</p>
+<p>without setting up the org-mode buffer:</p>
 
 <pre><code>- Setup problem.
 Either you did not connect your org-mode buffer with a trello board, to correct this:
@@ -823,25 +818,25 @@ Also, you can specify on your org-mode buffer the todo list you want to work wit
 </ul><h1>
 <a name="proxy-admin" class="anchor" href="#proxy-admin"><span class="octicon octicon-link"></span></a>proxy-admin</h1>
 
-<p>From the version 0.1.2 onwards, there is a proxy which is in charge of:</p>
+<p>From version 0.1.2 onwards, there is a proxy which is in charge of:</p>
 
 <ul>
 <li>consuming the synchronization of the entities</li>
-<li>requesting Trello for other actions too</li>
+<li>requesting that Trello do other actions too</li>
 <li>proxy admin web page</li>
-</ul><p>I also use it to make at disposition an admin web server - http://localhost:9876/proxy/admin/ - to be able to know which sync actions are running:
+</ul><p>I also used it to put at your disposal an admin web server - <a href="http://localhost:9876/proxy/admin/">http://localhost:9876/proxy/admin/</a> - so that you can know which sync actions are running:
 <img src="https://f.cloud.github.com/assets/718812/1014903/c208ff34-0bca-11e3-895a-432f66453208.png" alt="screenshot_2013-08-23_10-03-54"></p>
 
 <h1>
 <a name="mailing-list" class="anchor" href="#mailing-list"><span class="octicon octicon-link"></span></a>Mailing list</h1>
 
 <ul>
-<li>subscripe: Send a mail to emacs.org.trello [AT] librelist.com to subscribe.</li>
+<li>subscribe: Send a mail to emacs.org.trello [AT] librelist.com to subscribe.</li>
 <li>unsubscribe: Send a mail to emacs.org.trello-unsubscribe [AT] librelist.com to unsubscribe.</li>
 </ul><h1>
 <a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h1>
 
-<p>org-trello is free software under GPL v3. See COPYING file for details.</p>
+<p>org-trello is free software under the GPL v3. See the COPYING file for details.</p>
       </section>
     </div>
 
