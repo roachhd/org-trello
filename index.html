@@ -55,11 +55,14 @@
 <li><a href="#attach-org-file-to-trello-board">Attach org file to trello board</a></li>
 <li><a href="#synchronize-one-complete-entity">Synchronize one complete entity</a></li>
 <li><a href="#synchronize-from-org-to-trello">Synchronize from org to trello</a></li>
-<li><a href="#synchronize-from-trello-to-org">Synchronize from trello to org</a></li>
+<li><a href="#sync-from-trello-to-org-new-format">Sync from trello to org (new format)</a></li>
+<li><a href="#synchronize-from-trello-to-org-old-format">Synchronize from trello to org (old format)</a></li>
 <li><a href="#create-board-and-sync">Create board and sync</a></li>
 <li><a href="#create-board-with-your-keywords">Create board with your keywords</a></li>
-<li><a href="#use-the-checklist-luke!">Use the checklist Luke!</a></li>
+<li><a href="#use-the-checkbox-luke">Use the checkbox Luke</a></li>
 <li><a href="#kill-entities">Kill entities</a></li>
+<li><a href="#cleanup-routine">Cleanup routine</a></li>
+<li><a href="#org-trello---webadmin">org-trello - webadmin</a></li>
 <li><a href="#simple-help-routine">Simple help routine</a></li>
 <li><a href="#check-your-setup">Check your Setup</a></li>
 </ul>
@@ -93,7 +96,6 @@
 <a href="#sync-org-to-trello">Sync org to trello</a>
 
 <ul>
-<li><a href="#pre-requisite">pre-requisite</a></li>
 <li><a href="#sync-your-org-mode-buffer">Sync your org-mode buffer</a></li>
 </ul>
 </li>
@@ -112,14 +114,15 @@
 <a href="#formats">Formats</a>
 
 <ul>
-<li>
-<a href="#natural-org-format-from-016-onwards">natural org format (from 0.1.6 onwards)</a>
-
-<ul>
-<li><a href="#migrate-to-016">Migrate to 0.1.6</a></li>
-<li><a href="#reactivate">Reactivate</a></li>
+<li><a href="#natural-org-format-from-016-onwards">natural org format (from 0.1.6 onwards)</a></li>
 </ul>
 </li>
+<li>
+<a href="#keybindings--------%7C-interactive-commands-------------------------%7C-description">Keybindings        | Interactive commands                         | Description</a>
+    - <a href="#migrate-to-016">Migrate to 0.1.6</a>
+    - <a href="#reactivate">Reactivate</a>
+
+<ul>
 <li>
 <a href="#original-format-previous-to-016">Original format (previous to 0.1.6)</a>
 
@@ -131,7 +134,7 @@
 </li>
 <li><a href="#creation-step-by-step">Creation step-by-step</a></li>
 <li><a href="#card-and-deadlinedue-date">Card and deadline/due date</a></li>
-<li><a href="#creation-full-entity">Creation full entity</a></li>
+<li><a href="#creation-of-a-full-entity">Creation of a full entity</a></li>
 <li><a href="#sync-org-mode-file-to-trello-board">Sync org-mode file to trello board</a></li>
 <li><a href="#sync-org-mode-file-from-trello-board">Sync org-mode file from trello board</a></li>
 <li><a href="#remove-entity">Remove entity</a></li>
@@ -179,7 +182,7 @@
 For this, we use elnode as a proxy server to make requests to trello.
 The elnode server is started on the port 9876.
 You can always change this port</li>
-</ul><div class="highlight"><pre><span class="p">(</span><span class="k">setq</span> <span class="vg">*ORGTRELLO-PROXY-PORT*</span> <span class="mi">9876</span><span class="p">)</span>
+</ul><div class="highlight highlight-lisp"><pre><span class="p">(</span><span class="k">setq</span> <span class="vg">*ORGTRELLO-PROXY-PORT*</span> <span class="mi">9876</span><span class="p">)</span>
 </pre></div>
 
 <p>Then <code>M-x orgtrello-proxy/reload</code></p>
@@ -192,10 +195,10 @@ You can always change this port</li>
 
 <p>Yank this into a scratch buffer:</p>
 
-<div class="highlight"><pre><span class="p">(</span><span class="nb">require</span> <span class="ss">'package</span><span class="p">)</span>
+<div class="highlight highlight-lisp"><pre><span class="p">(</span><span class="nb">require</span> <span class="ss">'package</span><span class="p">)</span>
 <span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'package-archives</span> <span class="o">'</span><span class="p">(</span><span class="s">"marmalade"</span> <span class="o">.</span> <span class="s">"http://marmalade-repo.org/packages/"</span><span class="p">))</span>
-<span class="c1">;; or (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)</span>
 <span class="p">(</span><span class="nv">package-initialize</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">package-install</span> <span class="ss">'elnode</span><span class="p">)</span> <span class="c1">;; for some obscure reason, letting org-trello install elnode's dependencies makes it fail!</span>
 <span class="p">(</span><span class="nv">package-install</span> <span class="ss">'org-trello</span><span class="p">)</span>
 <span class="p">(</span><span class="nb">require</span> <span class="ss">'org-trello</span><span class="p">)</span>
 <span class="c1">;; to trigger org-trello for each org file</span>
@@ -206,11 +209,6 @@ You can always change this port</li>
 <p>then <code>M-x eval-buffer</code></p>
 
 <p>Now open an org-mode buffer, then hit: <code>C-c o h</code></p>
-
-<p><em>Note</em> If for some reason, the installation fails, force the installation again</p>
-
-<div class="highlight"><pre><span class="p">(</span><span class="nv">package-install</span> <span class="ss">'org-trello</span><span class="p">)</span>
-</pre></div>
 
 <h2>
 <a name="demo" class="anchor" href="#demo"><span class="octicon octicon-link"></span></a>Demo</h2>
@@ -246,7 +244,12 @@ You can always change this port</li>
 <p><a href="http://youtu.be/d6SATWzhQhs"><img src="https://i1.ytimg.com/vi/d6SATWzhQhs/0.jpg"></a></p>
 
 <h3>
-<a name="synchronize-from-trello-to-org" class="anchor" href="#synchronize-from-trello-to-org"><span class="octicon octicon-link"></span></a>Synchronize from trello to org</h3>
+<a name="sync-from-trello-to-org-new-format" class="anchor" href="#sync-from-trello-to-org-new-format"><span class="octicon octicon-link"></span></a>Sync from trello to org (new format)</h3>
+
+<p><a href="http://youtu.be/taIiWD-_zKY"><img src="https://i1.ytimg.com/vi/taIiWD-_zKY/0.jpg"></a></p>
+
+<h3>
+<a name="synchronize-from-trello-to-org-old-format" class="anchor" href="#synchronize-from-trello-to-org-old-format"><span class="octicon octicon-link"></span></a>Synchronize from trello to org (old format)</h3>
 
 <p><a href="http://youtu.be/-ldo8gvhaTY"><img src="https://i1.ytimg.com/vi/-ldo8gvhaTY/0.jpg"></a></p>
 
@@ -261,14 +264,24 @@ You can always change this port</li>
 <p><a href="http://youtu.be/1UYYXjCwshs"><img src="https://i1.ytimg.com/vi/1UYYXjCwshs/0.jpg"></a></p>
 
 <h3>
-<a name="use-the-checklist-luke" class="anchor" href="#use-the-checklist-luke"><span class="octicon octicon-link"></span></a>Use the checklist Luke!</h3>
+<a name="use-the-checkbox-luke" class="anchor" href="#use-the-checkbox-luke"><span class="octicon octicon-link"></span></a>Use the checkbox Luke</h3>
 
-<p><a href="http://youtu.be/M9xAvO3m_mU"><img src="https://i1.ytimg.com/vi/M9xAvO3m_mU/0.jpg"></a></p>
+<p><a href="http://youtu.be/Sc9EUW67I7A"><img src="https://i1.ytimg.com/vi/Sc9EUW67I7A/0.jpg"></a></p>
 
 <h3>
 <a name="kill-entities" class="anchor" href="#kill-entities"><span class="octicon octicon-link"></span></a>Kill entities</h3>
 
-<p><a href="http://youtu.be/C1c_m9LHyC0"><img src="https://i1.ytimg.com/vi/C1c_m9LHyC0/0.jpg"></a></p>
+<p><a href="http://youtu.be/Cz0JikxKx4I"><img src="https://i1.ytimg.com/vi/Cz0JikxKx4I/0.jpg"></a></p>
+
+<h3>
+<a name="cleanup-routine" class="anchor" href="#cleanup-routine"><span class="octicon octicon-link"></span></a>Cleanup routine</h3>
+
+<p><a href="http://youtu.be/Wp7BXF3m9rA"><img src="https://i1.ytimg.com/vi/Wp7BXF3m9rA/0.jpg"></a></p>
+
+<h3>
+<a name="org-trello---webadmin" class="anchor" href="#org-trello---webadmin"><span class="octicon octicon-link"></span></a>org-trello - webadmin</h3>
+
+<p><a href="http://youtu.be/dp8S7VTwHCc"><img src="https://i1.ytimg.com/vi/dp8S7VTwHCc/0.jpg"></a></p>
 
 <h3>
 <a name="simple-help-routine" class="anchor" href="#simple-help-routine"><span class="octicon octicon-link"></span></a>Simple help routine</h3>
@@ -302,7 +315,7 @@ You can always change this port</li>
 
 <p>Add this to your emacs's init file (~/.emacs, ~/.emacs.d/init.el, or <em>scratch</em>, or whatnot...)</p>
 
-<div class="highlight"><pre><span class="p">(</span><span class="nb">require</span> <span class="ss">'package</span><span class="p">)</span>
+<div class="highlight highlight-lisp"><pre><span class="p">(</span><span class="nb">require</span> <span class="ss">'package</span><span class="p">)</span>
 
 <span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'package-archives</span> <span class="o">'</span><span class="p">(</span><span class="s">"marmalade"</span> <span class="o">.</span> <span class="s">"http://marmalade-repo.org/packages/"</span><span class="p">))</span>
 
@@ -316,7 +329,7 @@ You can always change this port</li>
 
 <p>Add this to your emacs's init file (~/.emacs, ~/.emacs.d/init.el, or <em>scratch</em>, or whatnot...)</p>
 
-<div class="highlight"><pre><span class="p">(</span><span class="nb">require</span> <span class="ss">'package</span><span class="p">)</span>
+<div class="highlight highlight-lisp"><pre><span class="p">(</span><span class="nb">require</span> <span class="ss">'package</span><span class="p">)</span>
 
 <span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'package-archives</span> <span class="o">'</span><span class="p">(</span><span class="s">"melpa"</span> <span class="o">.</span> <span class="s">"http://melpa.milkbox.net/packages/"</span><span class="p">)</span> <span class="no">t</span><span class="p">)</span>
 
@@ -328,13 +341,12 @@ You can always change this port</li>
 <h2>
 <a name="org-trello" class="anchor" href="#org-trello"><span class="octicon octicon-link"></span></a>org-trello</h2>
 
-<p>To install org-trello:</p>
+<p>To install org-trello, use this:</p>
 
-<div class="highlight"><pre><span class="p">(</span><span class="nb">when</span> <span class="p">(</span><span class="nb">not</span> <span class="nv">package-archive-contents</span><span class="p">)</span>
+<div class="highlight highlight-lisp"><pre><span class="p">(</span><span class="nb">when</span> <span class="p">(</span><span class="nb">not</span> <span class="nv">package-archive-contents</span><span class="p">)</span>
   <span class="p">(</span><span class="nv">package-refresh-contents</span><span class="p">))</span>
 
-<span class="c1">;; Add in your own as you wish:</span>
-<span class="p">(</span><span class="nb">defvar</span> <span class="nv">my-packages</span> <span class="o">'</span><span class="p">(</span><span class="nv">org-trello</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">defvar</span> <span class="nv">my-packages</span> <span class="o">'</span><span class="p">(</span><span class="nv">elnode</span> <span class="nv">org-trello</span><span class="p">)</span>
   <span class="s">"A list of packages to ensure are installed at launch."</span><span class="p">)</span>
 
 <span class="p">(</span><span class="nb">dolist</span> <span class="p">(</span><span class="nv">p</span> <span class="nv">my-packages</span><span class="p">)</span>
@@ -349,18 +361,13 @@ You can always change this port</li>
 
 <p>Download org-trello from GitHub</p>
 
-<div class="highlight"><pre>git clone http://github.com/ardumont/org-trello.git
+<div class="highlight highlight-sh"><pre>git clone http://github.com/ardumont/org-trello.git
 </pre></div>
 
 <p>Add the org-trello directory to your load path and then add</p>
 
-<div class="highlight"><pre><span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'load-path</span> <span class="s">"/path/to/org-trello/"</span><span class="p">))</span>
+<div class="highlight highlight-lisp"><pre><span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'load-path</span> <span class="s">"/path/to/org-trello/"</span><span class="p">))</span>
 <span class="p">(</span><span class="nb">require</span> <span class="ss">'org-trello</span><span class="p">)</span>
-</pre></div>
-
-<p><em>Note</em> If for some reason, the installation fails, force the installation again</p>
-
-<div class="highlight"><pre><span class="p">(</span><span class="nv">package-install</span> <span class="ss">'org-trello</span><span class="p">)</span>
 </pre></div>
 
 <h2>
@@ -378,7 +385,7 @@ You can always change this port</li>
 <p>Org-trello is a minor mode for org-mode to sync.
 Add this somewhere in your load file (<code>~/.emacs</code> or <code>~/.emacs.d/init.el</code>).</p>
 
-<div class="highlight"><pre><span class="p">(</span><span class="nb">require</span> <span class="ss">'org-trello</span><span class="p">)</span>
+<div class="highlight highlight-lisp"><pre><span class="p">(</span><span class="nb">require</span> <span class="ss">'org-trello</span><span class="p">)</span>
 <span class="c1">;; to have org-trello activated for all org file, uncomment this</span>
 <span class="c1">;; (add-hook 'org-mode-hook 'org-trello-mode)</span>
 <span class="c1">;; otherwise, M-x org-trello-mode</span>
@@ -401,7 +408,7 @@ First, ensure that the web browser that emacs is configured to use is started, a
 
 <p>or in any mode:</p>
 
-<div class="highlight"><pre><span class="nv">M-x</span> <span class="nv">org-trello/install-key-and-token</span>
+<div class="highlight highlight-lisp"><pre><span class="nv">M-x</span> <span class="nv">org-trello/install-key-and-token</span>
 </pre></div>
 
 <h3>
@@ -416,7 +423,7 @@ First, ensure that the web browser that emacs is configured to use is started, a
 
 <p>or</p>
 
-<div class="highlight"><pre><span class="nv">M-x</span> <span class="nv">org-trello/install-board-and-lists-ids</span>
+<div class="highlight highlight-lisp"><pre><span class="nv">M-x</span> <span class="nv">org-trello/install-board-and-lists-ids</span>
 </pre></div>
 
 <p>A simpler way could be to create a board from scratch (if you can).</p>
@@ -431,7 +438,7 @@ This will create the list from the keywords you use in your org-mode (cf. <a hre
 
 <p>or</p>
 
-<div class="highlight"><pre><span class="nv">M-x</span> <span class="nv">org-trello/create-board</span>
+<div class="highlight highlight-lisp"><pre><span class="nv">M-x</span> <span class="nv">org-trello/create-board</span>
 </pre></div>
 
 <h1>
@@ -588,7 +595,7 @@ Thanks to <a href="https://github.com/sw1nn" class="user-mention">@sw1nn</a> <a 
 
 <p>This is activated by default but if you change this and you want to get back:</p>
 
-<div class="highlight"><pre><span class="p">(</span><span class="nv">org-trello/activate-natural-org-checkboxes</span><span class="p">)</span>
+<div class="highlight highlight-lisp"><pre><span class="p">(</span><span class="nv">org-trello/activate-natural-org-checkboxes</span><span class="p">)</span>
 </pre></div>
 
 <h3>
@@ -664,7 +671,7 @@ Thanks to <a href="https://github.com/sw1nn" class="user-mention">@sw1nn</a> <a 
 
 <p>From 0.1.6 onwards, if you want to deactivate the default way, and get back to the original way, put this snippet somewhere in your init file:</p>
 
-<div class="highlight"><pre><span class="p">(</span><span class="nv">org-trello/deactivate-natural-org-checkboxes</span><span class="p">)</span>
+<div class="highlight highlight-lisp"><pre><span class="p">(</span><span class="nv">org-trello/deactivate-natural-org-checkboxes</span><span class="p">)</span>
 </pre></div>
 
 <h2>
