@@ -39,7 +39,15 @@
 <ul>
 <li><a href="#rationale">rationale</a></li>
 <li><a href="#emacs-version">Emacs version</a></li>
-<li><a href="#migration">Migration</a></li>
+<li>
+<a href="#migration">Migration</a>
+
+<ul>
+<li><a href="#021--%3E-022">0.2.1 -&gt; 0.2.2</a></li>
+<li><a href="#015--%3E-016">0.1.5 -&gt; 0.1.6</a></li>
+<li><a href="#011--%3E-012">0.1.1 -&gt; 0.1.2</a></li>
+</ul>
+</li>
 <li>
 <a href="#tl;dr">TL;DR</a>
 
@@ -65,6 +73,7 @@
 <li><a href="#org-trello---webadmin">org-trello - webadmin</a></li>
 <li><a href="#simple-help-routine">Simple help routine</a></li>
 <li><a href="#check-your-setup">Check your Setup</a></li>
+<li><a href="#assign-oneself-to-the-card">Assign oneself to the card</a></li>
 </ul>
 </li>
 </ul>
@@ -114,15 +123,14 @@
 <a href="#formats">Formats</a>
 
 <ul>
-<li><a href="#natural-org-format-from-016-onwards">natural org format (from 0.1.6 onwards)</a></li>
-</ul>
-</li>
 <li>
-<a href="#keybindings--------%7C-interactive-commands-------------------------%7C-description">Keybindings        | Interactive commands                         | Description</a>
-    - <a href="#migrate-to-016">Migrate to 0.1.6</a>
-    - <a href="#reactivate">Reactivate</a>
+<a href="#natural-org-format-from-016-onwards">natural org format (from 0.1.6 onwards)</a>
 
 <ul>
+<li><a href="#migrate-to-016">Migrate to 0.1.6</a></li>
+<li><a href="#reactivate">Reactivate</a></li>
+</ul>
+</li>
 <li>
 <a href="#original-format-previous-to-016">Original format (previous to 0.1.6)</a>
 
@@ -169,13 +177,23 @@
 </ul><h1>
 <a name="migration" class="anchor" href="#migration"><span class="octicon octicon-link"></span></a>Migration</h1>
 
-<p>0.1.5 -&gt; 0.1.6</p>
+<h2>
+<a name="021---022" class="anchor" href="#021---022"><span class="octicon octicon-link"></span></a>0.2.1 -&gt; 0.2.2</h2>
+
+<p>From the 0.2.2 version onward, we can assign people to card.
+As a pre-requisite, we need to re-install the board (C-c o I), so that new properties will be installed (users currently assigned to the board we attach to).</p>
+
+<p>This way, you will be able to use the assign (C-c o a) / unassign (C-c o u) yourself to the card.</p>
+
+<h2>
+<a name="015---016" class="anchor" href="#015---016"><span class="octicon octicon-link"></span></a>0.1.5 -&gt; 0.1.6</h2>
 
 <p>Org-trello now uses more natural ways of dealing with checklists using checkboxes!</p>
 
 <p>cf. <a href="#natural-org-format-from-016-onwards">natural org format (from 0.1.6 onwards)</a> for more details.</p>
 
-<p>0.1.1 -&gt; 0.1.2:</p>
+<h2>
+<a name="011---012" class="anchor" href="#011---012"><span class="octicon octicon-link"></span></a>0.1.1 -&gt; 0.1.2</h2>
 
 <ul>
 <li>From version 0.1.1, some http requests will be asynchronous.
@@ -198,7 +216,7 @@ You can always change this port</li>
 <div class="highlight highlight-lisp"><pre><span class="p">(</span><span class="nb">require</span> <span class="ss">'package</span><span class="p">)</span>
 <span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'package-archives</span> <span class="o">'</span><span class="p">(</span><span class="s">"marmalade"</span> <span class="o">.</span> <span class="s">"http://marmalade-repo.org/packages/"</span><span class="p">))</span>
 <span class="p">(</span><span class="nv">package-initialize</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">package-install</span> <span class="ss">'elnode</span><span class="p">)</span> <span class="c1">;; for some obscure reason, letting org-trello install elnode's dependencies makes it fail!</span>
+<span class="p">(</span><span class="nv">package-install</span> <span class="ss">'elnode</span><span class="p">)</span> <span class="c1">;; for some obscure reason, letting org-trello install elnode's dependencies fail!</span>
 <span class="p">(</span><span class="nv">package-install</span> <span class="ss">'org-trello</span><span class="p">)</span>
 <span class="p">(</span><span class="nb">require</span> <span class="ss">'org-trello</span><span class="p">)</span>
 <span class="c1">;; to trigger org-trello for each org file</span>
@@ -293,14 +311,19 @@ You can always change this port</li>
 
 <p><a href="http://youtu.be/2OlmPMwtCAs"><img src="https://i1.ytimg.com/vi/1UYYXjCwshs/0.jpg"></a></p>
 
+<h3>
+<a name="assign-oneself-to-the-card" class="anchor" href="#assign-oneself-to-the-card"><span class="octicon octicon-link"></span></a>Assign oneself to the card</h3>
+
+<p>TODO</p>
+
 <h1>
 <a name="contributions" class="anchor" href="#contributions"><span class="octicon octicon-link"></span></a>Contributions</h1>
 
 <ul>
-<li>Pull Requests welcome (cf. <a href="./TODO.org">todo</a> - better read in an emacs org-mode buffer than on GitHub)</li>
+<li>Pull Requests welcome (cf. <a href="./TODO.org">todo</a> - use emacs org-mode buffer to read it</li>
 <li>Appreciate any feedback</li>
 <li>Open issues if you want something to be done</li>
-<li>Open issues for bugs too (please describe maximum inputs, version, <em>Messages</em> buffer, stacktrace, etc...)</li>
+<li>Open issues for bugs too (please describe maximum inputs, emacs version, org-trello version, <em>Messages</em> buffer, stacktrace, etc...)</li>
 <li><a href="./TODO.org">What has been done and remains to be done</a></li>
 </ul><h1>
 <a name="release-notes" class="anchor" href="#release-notes"><span class="octicon octicon-link"></span></a>Release notes</h1>
@@ -454,6 +477,11 @@ This will create the list from the keywords you use in your org-mode (cf. <a hre
 </tr></thead>
 <tbody>
 <tr>
+<td></td>
+<td><code>M-x org-trello/version</code></td>
+<td>org-trello's current version</td>
+</tr>
+<tr>
 <td><kbd>C-c o i</kbd></td>
 <td><code>M-x org-trello/install-key-and-token</code></td>
 <td>Install the keys and the access-token.</td>
@@ -507,6 +535,16 @@ This will create the list from the keywords you use in your org-mode (cf. <a hre
 <td><kbd>C-c o K</kbd></td>
 <td><code>M-x org-trello/kill-all-entities</code></td>
 <td>Kill all the entities (and their arborescence tree) from the trello board and the org buffer.</td>
+</tr>
+<tr>
+<td><kbd>C-c o a</kbd></td>
+<td><code>M-x org-trello/assign-me</code></td>
+<td>Assign one-self to the current card</td>
+</tr>
+<tr>
+<td><kbd>C-c o u</kbd></td>
+<td><code>M-x org-trello/unassign-me</code></td>
+<td>Unassign one-self from the current card</td>
 </tr>
 <tr>
 <td><kbd>C-c o h</kbd></td>
