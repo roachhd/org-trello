@@ -53,6 +53,7 @@
 
 <ul>
 <li><a href="#fast-setup">Fast setup</a></li>
+<li><a href="#prefix-binding-override-in-one-shot">Prefix binding override in one shot</a></li>
 <li>
 <a href="#demo">Demo</a>
 
@@ -172,30 +173,9 @@
 <p>Tested on:</p>
 
 <ul>
-<li>GNU Emacs 24.1.1 (x86_64-pc-linux-gnu, X toolkit, Xaw3d scroll bars) of 2012-09-22 on batsu, modified by Debian (&lt;= 0.0.9)</li>
 <li>GNU Emacs 24.3.1 (x86_64-pc-linux-gnu, X toolkit, Xaw3d scroll bars) of 2013-04-14 on marid, modified by Debian (from 0.1.0)</li>
 </ul><h1>
 <a name="migration" class="anchor" href="#migration"><span class="octicon octicon-link"></span></a>Migration</h1>
-
-<h2>
-<a name="022---023" class="anchor" href="#022---023"><span class="octicon octicon-link"></span></a>0.2.2 -&gt; 0.2.3</h2>
-
-<p>If you are rightly not happy with "C-c o" as prefix, you can now specify your default prefix keybinding.
-For this, you need to install the following hook specifying the :</p>
-
-<div class="highlight highlight-lisp"><pre><span class="p">(</span><span class="nb">require</span> <span class="ss">'org-trello</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'org-trello-mode-hook</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span> <span class="p">(</span><span class="nv">org-trello/install-local-prefix-mode-keybinding!</span> <span class="nv">&lt;prefix-key&gt;</span><span class="p">)))</span>
-</pre></div>
-
-<p>For example, installing using the "C-c x" as prefix key:</p>
-
-<div class="highlight highlight-lisp"><pre><span class="p">(</span><span class="nb">require</span> <span class="ss">'org-trello</span><span class="p">)</span>
-
-<span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'org-trello-mode-hook</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span> <span class="p">(</span><span class="nv">org-trello/install-local-prefix-mode-keybinding!</span> <span class="s">"C-c x"</span><span class="p">)))</span>
-</pre></div>
-
-<p><em>Note</em> If org-trello was already running. You need to relaunch the mode (<code>M-x org-trello-mode</code> twice).</p>
 
 <h2>
 <a name="021---022" class="anchor" href="#021---022"><span class="octicon octicon-link"></span></a>0.2.1 -&gt; 0.2.2</h2>
@@ -247,6 +227,26 @@ You can always change this port</li>
 <p>then <code>M-x eval-buffer</code></p>
 
 <p>Now open an org-mode buffer, then hit: <code>C-c o h</code></p>
+
+<h2>
+<a name="prefix-binding-override-in-one-shot" class="anchor" href="#prefix-binding-override-in-one-shot"><span class="octicon octicon-link"></span></a>Prefix binding override in one shot</h2>
+
+<p>If you are not happy with "C-c o" as default prefix, you can now override your default prefix keybinding.
+For this, you need to install the following hook specifying the :</p>
+
+<div class="highlight highlight-lisp"><pre><span class="p">(</span><span class="nb">require</span> <span class="ss">'org-trello</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'org-trello-mode-hook</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span> <span class="p">(</span><span class="nv">org-trello/install-local-prefix-mode-keybinding!</span> <span class="nv">&lt;prefix-key&gt;</span><span class="p">)))</span>
+</pre></div>
+
+<p>For example, installing using the "C-c x" as prefix key:</p>
+
+<div class="highlight highlight-lisp"><pre><span class="p">(</span><span class="nb">require</span> <span class="ss">'org-trello</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'org-trello-mode-hook</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span> <span class="p">(</span><span class="nv">org-trello/install-local-prefix-mode-keybinding!</span> <span class="s">"C-c x"</span><span class="p">)))</span>
+</pre></div>
+
+<p><em>Note</em> If org-trello was already running, you will need to relaunch the mode (<code>M-x org-trello-mode</code> twice).</p>
 
 <h2>
 <a name="demo" class="anchor" href="#demo"><span class="octicon octicon-link"></span></a>Demo</h2>
@@ -340,7 +340,7 @@ You can always change this port</li>
 <a name="contributions" class="anchor" href="#contributions"><span class="octicon octicon-link"></span></a>Contributions</h1>
 
 <ul>
-<li>Pull Requests welcome (cf. <a href="./TODO.org">todo</a> - use emacs org-mode buffer to read it</li>
+<li>Pull Requests surely welcome (cf. <a href="./TODO.org">todo</a> - use emacs org-mode buffer to read it)</li>
 <li>Appreciate any feedback</li>
 <li>Open issues if you want something to be done</li>
 <li>Open issues for bugs too (please describe maximum inputs, emacs version, org-trello version, <em>Messages</em> buffer, stacktrace, etc...)</li>
@@ -352,6 +352,8 @@ You can always change this port</li>
 
 <h1>
 <a name="install-1" class="anchor" href="#install-1"><span class="octicon octicon-link"></span></a>Install</h1>
+
+<p>Marmalade one is recommended.</p>
 
 <h2>
 <a name="marmalade---stable-version" class="anchor" href="#marmalade---stable-version"><span class="octicon octicon-link"></span></a>marmalade - Stable version</h2>
@@ -381,6 +383,10 @@ You can always change this port</li>
 
 <p>Then hit <code>M-x eval-buffer</code> to evaluate the buffer's contents.</p>
 
+<p><em>Note</em>
+Melpa and Marmalade repositories package the same org-trello code (I try to only merge in master through PR and both release comes from the master branch).
+The divergence comes from the org-trello dependencies which are not the same version. So surely, the most stable remains marmalade.</p>
+
 <h2>
 <a name="org-trello" class="anchor" href="#org-trello"><span class="octicon octicon-link"></span></a>org-trello</h2>
 
@@ -390,7 +396,7 @@ You can always change this port</li>
   <span class="p">(</span><span class="nv">package-refresh-contents</span><span class="p">))</span>
 
 <span class="p">(</span><span class="nb">defvar</span> <span class="nv">my-packages</span> <span class="o">'</span><span class="p">(</span><span class="nv">elnode</span> <span class="nv">org-trello</span><span class="p">)</span>
-  <span class="s">"A list of packages to ensure are installed at launch."</span><span class="p">)</span>
+  <span class="s">"A list of packages installed once at launch."</span><span class="p">)</span>
 
 <span class="p">(</span><span class="nb">dolist</span> <span class="p">(</span><span class="nv">p</span> <span class="nv">my-packages</span><span class="p">)</span>
   <span class="p">(</span><span class="nb">when</span> <span class="p">(</span><span class="nb">not</span> <span class="p">(</span><span class="nv">package-installed-p</span> <span class="nv">p</span><span class="p">))</span>
@@ -517,7 +523,7 @@ This will create the list from the keywords you use in your org-mode (cf. <a hre
 <td>Check that the setup is ok. If everything is ok, will simply display 'Setup ok!'</td>
 </tr>
 <tr>
-<td><kbd>C-c o x</kbd></td>
+<td><kbd>C-c o D</kbd></td>
 <td><code>M-x org-trello/delete-setup</code></td>
 <td>Clean up the org buffer from all org-trello informations</td>
 </tr>
@@ -565,6 +571,11 @@ This will create the list from the keywords you use in your org-mode (cf. <a hre
 <td><kbd>C-c o u</kbd></td>
 <td><code>M-x org-trello/unassign-me</code></td>
 <td>Unassign one-self from the current card</td>
+</tr>
+<tr>
+<td><kbd>C-c o g</kbd></td>
+<td><code>M-x org-trello/go-to-trello-board</code></td>
+<td>Browse to trello board</td>
 </tr>
 <tr>
 <td><kbd>C-c o h</kbd></td>
