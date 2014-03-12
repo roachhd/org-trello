@@ -37,13 +37,15 @@
 <p><strong>Table of Contents</strong>  <em>generated with <a href="http://doctoc.herokuapp.com/">DocToc</a></em></p>
 
 <ul>
-<li><a href="#rationale">rationale</a></li>
+<li><a href="#rationale">Rationale</a></li>
 <li><a href="#emacs-version">Emacs version</a></li>
 <li>
 <a href="#migration">Migration</a>
 
 <ul>
-<li><a href="#028">0.2.1 -&gt; 0.2.2</a></li>
+<li><a href="#031">0.3.1</a></li>
+<li><a href="#029">0.2.9</a></li>
+<li><a href="#028">0.2.8</a></li>
 <li><a href="#021--%3E-022">0.2.1 -&gt; 0.2.2</a></li>
 <li><a href="#015--%3E-016">0.1.5 -&gt; 0.1.6</a></li>
 <li><a href="#011--%3E-012">0.1.1 -&gt; 0.1.2</a></li>
@@ -157,7 +159,7 @@
 <li><a href="#mailing-list">Mailing list</a></li>
 <li><a href="#license">License</a></li>
 </ul><h1>
-<a name="rationale" class="anchor" href="#rationale"><span class="octicon octicon-link"></span></a>rationale</h1>
+<a name="rationale" class="anchor" href="#rationale"><span class="octicon octicon-link"></span></a>Rationale</h1>
 
 <ul>
 <li>
@@ -175,13 +177,34 @@
 
 <ul>
 <li>GNU Emacs 24.3.1 (x86_64-pc-linux-gnu, X toolkit, Xaw3d scroll bars) of 2013-04-14 on marid, modified by Debian (from 0.1.0)</li>
+<li>GNU Emacs 24.3.1 (x86_64-pc-linux-gnu, GTK+ Version 3.6.0) of 2014-01-03 on chindi02, modified by Debian</li>
 </ul><h1>
 <a name="migration" class="anchor" href="#migration"><span class="octicon octicon-link"></span></a>Migration</h1>
 
 <h2>
+<a name="031" class="anchor" href="#031"><span class="octicon octicon-link"></span></a>0.3.1</h2>
+
+<p>The old checklist/item format has been removed - <a href="https://github.com/ardumont/org-trello/issues/105">https://github.com/ardumont/org-trello/issues/105</a>.
+Now the org checkbox way is the standard one.</p>
+
+<h2>
+<a name="029" class="anchor" href="#029"><span class="octicon octicon-link"></span></a>0.2.9</h2>
+
+<p>For information, from 0.2.9 onward, the property "orgtrello-id" from the checkbox (checklists, items) will be hidden.</p>
+
+<p><em>Note</em></p>
+
+<ul>
+<li>Upon activating org-trello minor mode, all existing checkbox will be migrated and should disappear before your eyes.</li>
+<li>Symmetrically, when deactivating org-trello, all checkbox will appear.</li>
+<li>For this, org-trello use <a href="https://www.gnu.org/software/emacs/manual/html_node/elisp/Overlays.html">overlays</a> (implementation detail which permits to hide buffer region).</li>
+</ul><p>If you began to use org-trello, nothing to do.</p>
+
+<h2>
 <a name="028" class="anchor" href="#028"><span class="octicon octicon-link"></span></a>0.2.8</h2>
 
-<p>From now on, the card description can be synchronized too.</p>
+<p>From 0.2.8 onward, the card description can be synchronized too.
+Just synchronize as usual.</p>
 
 <h2>
 <a name="021---022" class="anchor" href="#021---022"><span class="octicon octicon-link"></span></a>0.2.1 -&gt; 0.2.2</h2>
@@ -421,7 +444,7 @@ The divergence comes from the org-trello dependencies which are not the same ver
 
 <p>Add the org-trello directory to your load path and then add</p>
 
-<div class="highlight highlight-lisp"><pre><span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'load-path</span> <span class="s">"/path/to/org-trello/"</span><span class="p">))</span>
+<div class="highlight highlight-lisp"><pre><span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'load-path</span> <span class="s">"/path/to/org-trello/"</span><span class="p">)</span>
 <span class="p">(</span><span class="nb">require</span> <span class="ss">'org-trello</span><span class="p">)</span>
 </pre></div>
 
@@ -661,99 +684,6 @@ Thanks to <a href="https://github.com/sw1nn" class="user-mention">@sw1nn</a> <a 
   - [X] Scala                                                 :PROPERTIES: {"orgtrello-id":"521dc9fc8e95d74636004109"}
 </code></pre>
 
-<h4>
-<a name="migrate-to-016" class="anchor" href="#migrate-to-016"><span class="octicon octicon-link"></span></a>Migrate to 0.1.6</h4>
-
-<p>To migrate your 0.1.6 org trello buffer to the new format:</p>
-
-<ul>
-<li>simply push the content to trello (<code>C-c o s</code>)</li>
-<li>Erase the content of your buffer except for the org-trello properties (<code>#+</code> entries at the beginning of the file)</li>
-<li>and sync from trello again (<code>C-c o S</code>).</li>
-</ul><h4>
-<a name="reactivate" class="anchor" href="#reactivate"><span class="octicon octicon-link"></span></a>Reactivate</h4>
-
-<p>This is activated by default but if you change this and you want to get back:</p>
-
-<div class="highlight highlight-lisp"><pre><span class="p">(</span><span class="nv">org-trello/activate-natural-org-checkboxes</span><span class="p">)</span>
-</pre></div>
-
-<h3>
-<a name="original-format-previous-to-016" class="anchor" href="#original-format-previous-to-016"><span class="octicon octicon-link"></span></a>Original format (previous to 0.1.6)</h3>
-
-<pre lang="org-mode"><code>* IN-PROGRESS Joy of FUN(ctional) LANGUAGES
-** TODO LISP
-*** DONE Emacs-Lisp
-*** DONE Common-Lisp
-*** Scheme
-*** TODO Clojure
-** DONE ML
-*** DONE Haskell
-*** DONE Ocaml
-** DONE Hybrid
-*** DONE Scala
-** A little more explanation, this is level 2 so checklist on trello
-*** item (level 3)
-**** Any entity superior to level 4 are not considered for sync
-</code></pre>
-
-<p>Once synchronized, this looks like (largely prettier in emacs org buffer):</p>
-
-<pre lang="org-mode"><code>* IN-PROGRESS Joy of FUN(ctional) LANGUAGES
-:PROPERTIES:
-:orgtrello-id: 521dc9f3edeabee47600401e
-:END:
-** TODO LISP
-:PROPERTIES:
-:orgtrello-id: 521dc9f48e95d74636004107
-:END:
-*** DONE Emacs-Lisp
-:PROPERTIES:
-:orgtrello-id: 521dc9f7487c2e9b250047a5
-:END:
-*** DONE Common-Lisp
-:PROPERTIES:
-:orgtrello-id: 521dc9f7ae27842a36003b26
-:END:
-*** TODO Scheme
-:PROPERTIES:
-:orgtrello-id: 521dc9f834f52df935003b15
-:END:
-*** DONE Clojure
-:PROPERTIES:
-:orgtrello-id: 521dc9f9c1b85c905f006b4e
-:END:
-** TODO ML
-:PROPERTIES:
-:orgtrello-id: 521dc9f5d49a919614000266
-:END:
-*** DONE Haskell
-:PROPERTIES:
-:orgtrello-id: 521dc9fa5699f00b25003bd0
-:END:
-*** DONE Ocaml
-:PROPERTIES:
-:orgtrello-id: 521dc9fb7ef4310554003ab3
-:END:
-** TODO Hybrid
-:PROPERTIES:
-:orgtrello-id: 521dc9f6238d072770007217
-:END:
-*** DONE Scala
-:PROPERTIES:
-:orgtrello-id: 521dc9fc8e95d74636004109
-:END:
-
-</code></pre>
-
-<h4>
-<a name="activate" class="anchor" href="#activate"><span class="octicon octicon-link"></span></a>Activate</h4>
-
-<p>From 0.1.6 onwards, if you want to deactivate the default way, and get back to the original way, put this snippet somewhere in your init file:</p>
-
-<div class="highlight highlight-lisp"><pre><span class="p">(</span><span class="nv">org-trello/deactivate-natural-org-checkboxes</span><span class="p">)</span>
-</pre></div>
-
 <h2>
 <a name="creation-step-by-step" class="anchor" href="#creation-step-by-step"><span class="octicon octicon-link"></span></a>Creation step-by-step</h2>
 
@@ -843,25 +773,12 @@ This will remove any org-trello related entries in your file (headers included).
 <p>Here are the possible error messages you can get if trying to sync in bad conditions:</p>
 
 <ul>
-<li>
-<p>without setting up the consumer-key and the access-token:</p>
-
-<pre><code>- Setup problem - You need to install the consumer-key and the read/write access-token - C-c o i or M-x org-trello/install-board-and-lists-ids
+<li>without setting up the consumer-key and the access-token:</li>
+</ul><pre><code> - Setup problem - You need to install the consumer-key and the read/write access-token - C-c o i or M-x org-trello/install-board-and-lists-ids
 </code></pre>
-</li>
-<li>
-<p>without setting up the org-mode buffer:</p>
 
-<pre><code>- Setup problem.
-Either you did not connect your org-mode buffer with a trello board, to correct this:
-* attach to a board through C-c o I or M-x org-trello/install-board-and-lists-ids
-* or create a board from scratch with C-c o b or M-x org-trello/create-board).
-Either your org-mode's todo keyword list and your trello board lists are not named the same way (which they must).
-For this, connect to trello and rename your board's list according to your org-mode's todo list.
-Also, you can specify on your org-mode buffer the todo list you want to work with, for example: #+TODO: TODO DOING | DONE FAIL (hit C-c C-c to refresh the setup)
-</code></pre>
-</li>
-<li><p>If the board's list names are different from your org-mode's keyword list:</p></li>
+<ul>
+<li>without setting up the org-mode buffer:</li>
 </ul><pre><code> - Setup problem.
 Either you did not connect your org-mode buffer with a trello board, to correct this:
   * attach to a board through C-c o I or M-x org-trello/install-board-and-lists-ids
@@ -872,37 +789,42 @@ Also, you can specify on your org-mode buffer the todo list you want to work wit
 </code></pre>
 
 <ul>
-<li>
-<p>no label on the card:</p>
-
-<pre><code>Cannot synchronize the card - missing mandatory label. Skip it...
+<li>If the board's list names are different from your org-mode's keyword list:</li>
+</ul><pre><code> - Setup problem.
+Either you did not connect your org-mode buffer with a trello board, to correct this:
+  * attach to a board through C-c o I or M-x org-trello/install-board-and-lists-ids
+  * or create a board from scratch with C-c o b or M-x org-trello/create-board).
+Either your org-mode's todo keyword list and your trello board lists are not named the same way (which they must).
+For this, connect to trello and rename your board's list according to your org-mode's todo list.
+Also, you can specify on your org-mode buffer the todo list you want to work with, for example: #+TODO: TODO DOING | DONE FAIL (hit C-c C-c to refresh the setup)
 </code></pre>
-</li>
-<li>
-<p>no label on the checklist:</p>
 
-<pre><code>Cannot synchronize the checklist - missing mandatory label. Skip it...
+<ul>
+<li>no label on the card:</li>
+</ul><pre><code>Cannot synchronize the card - missing mandatory label. Skip it...
 </code></pre>
-</li>
-<li>
-<p>no label on the item:</p>
 
-<pre><code>Cannot synchronize the item - missing mandatory label. Skip it...
+<ul>
+<li>no label on the checklist:</li>
+</ul><pre><code>Cannot synchronize the checklist - missing mandatory label. Skip it...
 </code></pre>
-</li>
-<li>
-<p>syncing the checklist without syncing the card first:</p>
 
-<pre><code>Cannot synchronize the checklist - the card must synchronized first. Skip it...
+<ul>
+<li>no label on the item:</li>
+</ul><pre><code>Cannot synchronize the item - missing mandatory label. Skip it...
 </code></pre>
-</li>
-<li>
-<p>syncing the item without syncing the checklist first:</p>
 
-<pre><code>Cannot synchronize the item - the checklist must be synchronized first. Skip it...
+<ul>
+<li>syncing the checklist without syncing the card first:</li>
+</ul><pre><code>Cannot synchronize the checklist - the card must synchronized first. Skip it...
 </code></pre>
-</li>
-</ul><h1>
+
+<ul>
+<li>syncing the item without syncing the checklist first:</li>
+</ul><pre><code>Cannot synchronize the item - the checklist must be synchronized first. Skip it...
+</code></pre>
+
+<h1>
 <a name="proxy-admin" class="anchor" href="#proxy-admin"><span class="octicon octicon-link"></span></a>proxy-admin</h1>
 
 <p>From version 0.1.2 onwards, there is a proxy which is in charge of:</p>
