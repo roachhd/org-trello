@@ -34,6 +34,10 @@
 
 <p><a href="http://orgmode.org/">Org</a> minor mode - 2-way sync <a href="http://orgmode.org/">org</a> &amp; <a href="http://trello.com/">trello</a></p>
 
+
+
+
+
 <p><strong>Table of Contents</strong>  <em>generated with <a href="http://doctoc.herokuapp.com/">DocToc</a></em></p>
 
 <ul>
@@ -52,7 +56,7 @@
 </ul>
 </li>
 <li>
-<a href="#tl;dr">TL;DR</a>
+<a href="#tldr">TL;DR</a>
 
 <ul>
 <li><a href="#fast-setup">Fast setup</a></li>
@@ -123,41 +127,9 @@
 
 <ul>
 <li><a href="#setup-1">Setup</a></li>
-<li>
-<a href="#formats">Formats</a>
-
-<ul>
-<li>
-<a href="#natural-org-format-from-016-onwards">natural org format (from 0.1.6 onwards)</a>
-
-<ul>
-<li><a href="#migrate-to-016">Migrate to 0.1.6</a></li>
-<li><a href="#reactivate">Reactivate</a></li>
+<li><a href="#formats">Formats</a></li>
 </ul>
 </li>
-<li>
-<a href="#original-format-previous-to-016">Original format (previous to 0.1.6)</a>
-
-<ul>
-<li><a href="#activate">Activate</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#creation-step-by-step">Creation step-by-step</a></li>
-<li><a href="#card-and-deadlinedue-date">Card and deadline/due date</a></li>
-<li><a href="#creation-of-a-full-entity">Creation of a full entity</a></li>
-<li><a href="#sync-org-mode-file-to-trello-board">Sync org-mode file to trello board</a></li>
-<li><a href="#sync-org-mode-file-from-trello-board">Sync org-mode file from trello board</a></li>
-<li><a href="#remove-entity">Remove entity</a></li>
-<li><a href="#remove-entities">Remove entities</a></li>
-<li><a href="#cleanup-org-trello-setup">Cleanup org-trello setup</a></li>
-</ul>
-</li>
-<li><a href="#errors">Errors</a></li>
-<li><a href="#proxy-admin">proxy-admin</a></li>
-<li><a href="#mailing-list">Mailing list</a></li>
-<li><a href="#license">License</a></li>
 </ul><h1>
 <a name="rationale" class="anchor" href="#rationale"><span class="octicon octicon-link"></span></a>Rationale</h1>
 
@@ -178,6 +150,7 @@
 <ul>
 <li>GNU Emacs 24.3.1 (x86_64-pc-linux-gnu, X toolkit, Xaw3d scroll bars) of 2013-04-14 on marid, modified by Debian (from 0.1.0)</li>
 <li>GNU Emacs 24.3.1 (x86_64-pc-linux-gnu, GTK+ Version 3.6.0) of 2014-01-03 on chindi02, modified by Debian</li>
+<li>GNU Emacs 24.3.50.1 (x86_64-unknown-linux-gnu, GTK+ Version 2.24.22) of 2014-03-08 on dagobah</li>
 </ul><h1>
 <a name="migration" class="anchor" href="#migration"><span class="octicon octicon-link"></span></a>Migration</h1>
 
@@ -604,7 +577,7 @@ This will create the list from the keywords you use in your org-mode (cf. <a hre
 <tr>
 <td><kbd>C-c o j</kbd></td>
 <td><code>M-x org-trello/jump-to-card</code></td>
-<td>Jump to current card</td>
+<td>Jump to current trello card</td>
 </tr>
 <tr>
 <td><kbd>C-c o J</kbd></td>
@@ -643,13 +616,8 @@ This will edit your org-mode file to add the properties needed.</li>
 <h2>
 <a name="formats" class="anchor" href="#formats"><span class="octicon octicon-link"></span></a>Formats</h2>
 
-<p>There is a new setup which is activated by default, using the natural org <a href="http://orgmode.org/manual/Checkboxes.html">checkboxes</a>.
+<p><a href="http://orgmode.org/manual/Checkboxes.html">Natural org checkboxes</a>.
 Thanks to <a href="https://github.com/sw1nn" class="user-mention">@sw1nn</a> <a href="https://github.com/ardumont/org-trello/issues/14">for showing me this org feature, this is awesome!</a>.</p>
-
-<h3>
-<a name="natural-org-format-from-016-onwards" class="anchor" href="#natural-org-format-from-016-onwards"><span class="octicon octicon-link"></span></a>natural org format (from 0.1.6 onwards)</h3>
-
-<p>Activated by default.</p>
 
 <pre lang="org-mode"><code>- [-] LISP
   - [X] Emacs-Lisp
@@ -672,17 +640,19 @@ Thanks to <a href="https://github.com/sw1nn" class="user-mention">@sw1nn</a> <a 
 :PROPERTIES:
 :orgtrello-id: 521dc9f3edeabee47600401e
 :END:
-- [-] LISP                                                    :PROPERTIES: {"orgtrello-id":"521dc9f48e95d74636004107"}
-  - [X] Emacs-Lisp                                            :PROPERTIES: {"orgtrello-id":"521dc9f7487c2e9b250047a5"}
-  - [X] Common-Lisp                                           :PROPERTIES: {"orgtrello-id":"521dc9f7ae27842a36003b26"}
-  - [ ] Scheme                                                :PROPERTIES: {"orgtrello-id":"521dc9f834f52df935003b15"}
-  - [X] Clojure                                               :PROPERTIES: {"orgtrello-id":"521dc9f9c1b85c905f006b4e"}
-- [X] ML                                                      :PROPERTIES: {"orgtrello-id":"521dc9f5d49a919614000266"}
-  - [X] Haskell                                               :PROPERTIES: {"orgtrello-id":"521dc9fa5699f00b25003bd0"}
-  - [X] Ocaml                                                 :PROPERTIES: {"orgtrello-id":"521dc9fb7ef4310554003ab3"}
-- [X] Hybrid                                                  :PROPERTIES: {"orgtrello-id":"521dc9f6238d072770007217"}
-  - [X] Scala                                                 :PROPERTIES: {"orgtrello-id":"521dc9fc8e95d74636004109"}
+- [-] LISP :PROPERTIES: {"orgtrello-id":"521dc9f48e95d74636004107"}
+  - [X] Emacs-Lisp :PROPERTIES: {"orgtrello-id":"521dc9f7487c2e9b250047a5"}
+  - [X] Common-Lisp :PROPERTIES: {"orgtrello-id":"521dc9f7ae27842a36003b26"}
+  - [ ] Scheme :PROPERTIES: {"orgtrello-id":"521dc9f834f52df935003b15"}
+  - [X] Clojure :PROPERTIES: {"orgtrello-id":"521dc9f9c1b85c905f006b4e"}
+- [X] ML :PROPERTIES: {"orgtrello-id":"521dc9f5d49a919614000266"}
+  - [X] Haskell :PROPERTIES: {"orgtrello-id":"521dc9fa5699f00b25003bd0"}
+  - [X] Ocaml :PROPERTIES: {"orgtrello-id":"521dc9fb7ef4310554003ab3"}
+- [X] Hybrid :PROPERTIES: {"orgtrello-id":"521dc9f6238d072770007217"}
+  - [X] Scala :PROPERTIES: {"orgtrello-id":"521dc9fc8e95d74636004109"}
 </code></pre>
+
+<p><em>Note</em> In org-trello buffer, the :PROPERTIES: for the checklists/items won't be visible for the user.</p>
 
 <h2>
 <a name="creation-step-by-step" class="anchor" href="#creation-step-by-step"><span class="octicon octicon-link"></span></a>Creation step-by-step</h2>
@@ -766,6 +736,16 @@ This will also remove the entries from the org-mode buffer.</p>
 
 <p>You can remove all data from the org-mode buffer with <code>C-c o x</code>.
 This will remove any org-trello related entries in your file (headers included).</p>
+
+<h2>
+<a name="jump-to-trello-board" class="anchor" href="#jump-to-trello-board"><span class="octicon octicon-link"></span></a>Jump to trello board</h2>
+
+<p>When inside your org-trello buffer (not on metadata), hit <code>C-c o j</code> and this will open your browser to the current trello board that your org-trello buffer is connected to.</p>
+
+<h2>
+<a name="jump-to-trello-card" class="anchor" href="#jump-to-trello-card"><span class="octicon octicon-link"></span></a>Jump to trello card</h2>
+
+<p>When inside your org-trello buffer, somewhere inside a card, hit <code>C-c o j</code> and this will open your browser to the current trello card.</p>
 
 <h1>
 <a name="errors" class="anchor" href="#errors"><span class="octicon octicon-link"></span></a>Errors</h1>
